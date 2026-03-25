@@ -71,21 +71,25 @@ export default function ConceptPage({ params }: Props) {
         <p className="text-lg text-[var(--ink-2)] italic">{concept.tagline}</p>
       </div>
 
-      {/* TensorTonic callout */}
+      {/* TensorTonic link */}
       {concept.tensortonic && (
-        <div className="mb-8 flex items-center gap-3 rounded-xl bg-violet-50 border border-violet-200 px-5 py-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100 text-violet-600 flex-shrink-0">
-            ⌨️
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-violet-800">Implement this on TensorTonic</p>
-            <p className="text-xs text-violet-600 mt-0.5">Problem: <strong>{concept.tensortonic}</strong></p>
-          </div>
-          <a href="https://tensortonic.com" target="_blank" rel="noopener noreferrer"
-            className="flex-shrink-0 text-xs font-medium text-violet-700 no-underline hover:underline">
-            Open ↗
+        <p className="text-sm text-[var(--ink-3)] mb-8">
+          ⌨️{" "}
+          <a
+            href="https://www.tensortonic.com/problems"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-violet-600 hover:text-violet-800 hover:underline"
+          >
+            Practice on TensorTonic
           </a>
-        </div>
+          {" — "}
+          <span className="font-mono text-xs">
+            {concept.tensortonic
+              .replace("https://www.tensortonic.com/problems/", "")
+              .replace(/-/g, " ")}
+          </span>
+        </p>
       )}
 
       {/* Description */}

@@ -90,9 +90,9 @@ export default function ConceptsPage() {
                     <p className="text-xs text-[var(--ink-3)] leading-relaxed flex-1">{concept.tagline}</p>
 
                     {concept.tensortonic && (
-                      <div className="mt-3 pt-3 border-t border-[var(--border)] flex items-center gap-1.5 text-[10px] text-violet-600">
-                        <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-                        TensorTonic: {concept.tensortonic}
+                      <div className="mt-3 pt-3 border-t border-[var(--border)] flex items-center gap-1.5 text-[10px] text-violet-600 font-medium">
+                        <span className="h-1.5 w-1.5 rounded-full bg-violet-400 flex-shrink-0" />
+                        TensorTonic problem available
                       </div>
                     )}
                   </Link>

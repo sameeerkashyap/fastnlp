@@ -82,7 +82,7 @@ print(ngram_frequencies(text, 1))
         type: "article",
       },
     ],
-    tensortonic: "N-gram Frequency Counter",
+    tensortonic: "https://www.tensortonic.com/problems/n-gram-frequency-counter",
     relatedConcepts: ["tf-idf", "word2vec", "tokenization"],
   },
   {
@@ -151,7 +151,7 @@ matrix, vocab = compute_tfidf(corpus)`,
         type: "docs",
       },
     ],
-    tensortonic: "TF-IDF Vectorizer",
+    tensortonic: "https://www.tensortonic.com/problems/tf-idf-vectorizer",
     relatedConcepts: ["n-grams", "cosine-similarity", "word2vec"],
   },
   {
@@ -194,7 +194,7 @@ def cosine_similarity_normalized(a: np.ndarray, b: np.ndarray) -> float:
       "Works in high-dimensional spaces where Euclidean distance becomes unreliable (curse of dimensionality)",
     ],
     resources: [],
-    tensortonic: "Cosine Similarity",
+    tensortonic: "https://www.tensortonic.com/problems/cosine-similarity",
     relatedConcepts: ["tf-idf", "sentence-embeddings", "faiss"],
   },
   {
@@ -287,7 +287,7 @@ print(probs)  # [0.659, 0.242, 0.099] — sums to 1.0
       "Softmax + cross-entropy loss has a clean gradient: ŷ - y (predicted - true)",
     ],
     resources: [],
-    tensortonic: "Softmax Function",
+    tensortonic: "https://www.tensortonic.com/problems/softmax-function",
     relatedConcepts: ["cross-entropy", "self-attention", "gradient-descent"],
   },
   {
@@ -337,7 +337,7 @@ loss = criterion(logits, target)`,
       "Binary cross-entropy is used for multi-label classification (each class independently yes/no)",
     ],
     resources: [],
-    tensortonic: "Cross Entropy Loss",
+    tensortonic: "https://www.tensortonic.com/problems/cross-entropy-loss",
     relatedConcepts: ["softmax", "gradient-descent", "neural-networks"],
   },
   {
@@ -397,7 +397,7 @@ class Adam:
       "Learning rate schedulers (warmup + cosine decay) are standard in transformer fine-tuning",
     ],
     resources: [],
-    tensortonic: "Gradient Descent + Adam Optimizer",
+    tensortonic: "https://www.tensortonic.com/problems/gradient-descent",
     relatedConcepts: ["cross-entropy", "neural-networks", "batch-normalization"],
   },
   {
@@ -437,7 +437,7 @@ ffn = FeedForward(d_model=768, d_ff=3072)`,
       "Universal Approximation Theorem: a wide enough 1-hidden-layer network can approximate any function",
     ],
     resources: [],
-    tensortonic: "MLP Forward Pass",
+    tensortonic: "https://www.tensortonic.com/problems/mlp-forward-pass",
     relatedConcepts: ["gradient-descent", "batch-normalization", "dropout", "transformer-motivation"],
   },
   {
@@ -476,7 +476,7 @@ ln = nn.LayerNorm(normalized_shape=768)
       "At inference time, BatchNorm uses running statistics from training — LayerNorm uses the current sample only",
     ],
     resources: [],
-    tensortonic: "Batch Normalization",
+    tensortonic: "https://www.tensortonic.com/problems/batch-normalization",
     relatedConcepts: ["neural-networks", "dropout", "layer-normalization"],
   },
   {
@@ -519,7 +519,7 @@ class Dropout(nn.Module):
       "Inverted dropout (scale by 1/(1-p) at training) is the standard implementation — no scaling at test time",
     ],
     resources: [],
-    tensortonic: "Dropout",
+    tensortonic: "https://www.tensortonic.com/problems/dropout",
     relatedConcepts: ["neural-networks", "batch-normalization", "simcse"],
   },
   {
@@ -560,7 +560,7 @@ lstm = nn.LSTM(input_size=256, hidden_size=512, batch_first=True)
       "Bidirectional RNNs (BiLSTM) read forward and backward — this insight led directly to BERT's bidirectional attention",
     ],
     resources: [],
-    tensortonic: "RNN Forward Pass",
+    tensortonic: "https://www.tensortonic.com/problems/rnn-forward-pass",
     relatedConcepts: ["vanishing-gradients", "transformer-motivation", "self-attention"],
   },
   {
@@ -666,7 +666,7 @@ def scaled_dot_product_attention(
         type: "paper",
       },
     ],
-    tensortonic: "Scaled Dot-Product Attention",
+    tensortonic: "https://www.tensortonic.com/problems/scaled-dot-product-attention",
     relatedConcepts: ["multi-head-attention", "positional-encoding", "transformer-motivation"],
   },
   {
@@ -736,7 +736,7 @@ class MultiHeadAttention(nn.Module):
       "The output projection W^O combines information from all heads",
     ],
     resources: [],
-    tensortonic: "Multi-Head Attention",
+    tensortonic: "https://www.tensortonic.com/problems/multi-head-attention",
     relatedConcepts: ["self-attention", "positional-encoding", "bert", "layer-normalization"],
   },
   {
@@ -779,7 +779,7 @@ def sinusoidal_positional_encoding(seq_len: int, d_model: int) -> torch.Tensor:
       "ALiBi: bias attention scores by distance instead of adding to embeddings — very efficient for long contexts",
     ],
     resources: [],
-    tensortonic: "Positional Encoding",
+    tensortonic: "https://www.tensortonic.com/problems/positional-encoding",
     relatedConcepts: ["self-attention", "tokenization", "bert"],
   },
   {
@@ -822,7 +822,7 @@ print(tokenizer.tokenize(text_de))
       "Special tokens: [CLS] (classification), [SEP] (separator), [PAD] (padding), [MASK] (for MLM pretraining)",
     ],
     resources: [],
-    tensortonic: "BPE Tokenizer",
+    tensortonic: "https://www.tensortonic.com/problems/bpe-tokenizer",
     relatedConcepts: ["bert", "xlm-r", "positional-encoding"],
   },
   {
@@ -961,7 +961,7 @@ similarity = np.dot(embeddings, embeddings.T)
       "Multilingual models share an embedding space across languages — 'cat' and 'chat' (French) are close",
     ],
     resources: [],
-    tensortonic: "Sentence Embeddings",
+    tensortonic: "https://www.tensortonic.com/problems/sentence-embeddings",
     relatedConcepts: ["bert", "sentence-bert", "faiss", "contrastive-learning"],
   },
   {
@@ -1202,7 +1202,7 @@ def triplet_loss(anchor, positive, negative, margin: float = 0.5) -> torch.Tenso
       "MultipleNegativesRankingLoss (SBERT library) is more efficient: uses in-batch negatives, no triplet construction needed",
     ],
     resources: [],
-    tensortonic: "Triplet Loss",
+    tensortonic: "https://www.tensortonic.com/problems/triplet-loss",
     relatedConcepts: ["contrastive-learning", "simcse", "siamese-network"],
   },
   {

@@ -24,7 +24,7 @@ export function Logo({ size = 28, className = "" }: LogoProps) {
         width: size,
         height: size,
         borderRadius: Math.round(size * 0.25),
-        backgroundColor: "#0f0f0f",
+        backgroundColor: "#3a2d2dff",
         flexShrink: 0,
         padding,
       }}

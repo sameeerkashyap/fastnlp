@@ -3,6 +3,10 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
+// GitHub Pages deploys under a sub-path (e.g. /fastnlp).
+// Next.js metadata.icons does NOT auto-prepend basePath, so we do it manually.
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: {
     default: "FastNLP — NeetCode for NLP",
@@ -13,13 +17,13 @@ export const metadata: Metadata = {
   keywords: ["NLP", "natural language processing", "transformers", "BERT", "machine learning", "learn NLP", "NeetCode NLP"],
   icons: {
     icon: [
-      { url: "/favicon/favicon.ico", sizes: "48x48" },
-      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: `${base}/icon.png`, type: "image/png" },
+      { url: `${base}/favicon/favicon.ico`, sizes: "48x48" },
+      { url: `${base}/favicon/favicon-96x96.png`, type: "image/png", sizes: "96x96" },
     ],
-    apple: { url: "/favicon/apple-touch-icon.png", sizes: "180x180" },
+    apple: { url: `${base}/favicon/apple-touch-icon.png`, sizes: "180x180" },
     other: [
-      { rel: "manifest", url: "/favicon/site.webmanifest" },
+      { rel: "manifest", url: `${base}/favicon/site.webmanifest` },
     ],
   },
   openGraph: {

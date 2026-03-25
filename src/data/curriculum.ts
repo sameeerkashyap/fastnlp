@@ -110,7 +110,7 @@ export const curriculum: Week[] = [
           },
         ],
         insight:
-          "This is the demo's data foundation. Every future training step depends on this file. The LLM-as-labeler approach is itself a talking point — mention it explicitly in your DM to the founder.",
+          "This is the demo's data foundation. Every future training step depends on this file. The LLM-as-labeler approach is a talking point worth documenting clearly in your README and model card.",
         concepts: ["llm-as-labeler"],
       },
       {
@@ -292,7 +292,7 @@ export const curriculum: Week[] = [
               "Read: XLM-R paper abstract + Section 2. Key difference from mBERT: trained on 2.5TB of filtered CommonCrawl across 100 languages with a shared vocabulary.",
               "Swap all-MiniLM-L6-v2 for paraphrase-multilingual-MiniLM-L12-v2. Feed it the French and German variants in your dataset.",
               "Measure: can it map 'Directeur Commercial' (French for Sales Director) to the correct canonical English title? Expect ~70%+ with zero training.",
-              "This zero-shot cross-lingual transfer result is a demo-worthy finding — screenshot it for your Loom.",
+              "This zero-shot cross-lingual transfer result is a demo-worthy finding — screenshot it for your model card and demo UI.",
             ],
           },
         ],
@@ -427,7 +427,7 @@ export const curriculum: Week[] = [
             category: "Build (2 hrs)",
             items: [
               "Run UMAP on all 1,000 title embeddings (before and after fine-tuning). Plot with Plotly — color by job function.",
-              "Before: messy clusters. After: tight clusters. This before/after UMAP plot is a screenshot-worthy result for your Loom and LinkedIn post.",
+              "Before: messy clusters. After: tight clusters. This before/after UMAP plot is the hero visual for your README and demo UI — it makes the improvement immediately intuitive.",
             ],
           },
           {
@@ -463,10 +463,10 @@ export const curriculum: Week[] = [
   {
     week: 4,
     title: "Ship It",
-    subtitle: "Deploy, record, send the DM",
-    focus: "Build the Gradio demo UI, deploy to HuggingFace Spaces, record a 90-second Loom, polish the README, and send the cold DM to the founder.",
-    tensortonic: "Interview prep mode — solve Adam, Batch Norm, Dropout from memory",
-    milestone: "Live demo URL + cold DM sent by Friday EOD",
+    subtitle: "Deploy, document, and share your work",
+    focus: "Build the Gradio demo UI, deploy to HuggingFace Spaces, write a thorough README and model card, and make your work shareable and reproducible.",
+    tensortonic: "Systems design mode — solve Adam, Batch Norm, Dropout from memory",
+    milestone: "Live demo URL + public GitHub repo with clean README by Friday EOD",
     accent: "#059669",
     accentLight: "#ECFDF5",
     days: [
@@ -517,22 +517,21 @@ export const curriculum: Week[] = [
       {
         day: "Wednesday",
         slug: "w4-wed",
-        title: "Record the 90-second Loom",
+        title: "Write the model card + document results",
         type: ["ship"],
-        summary: "Script your Loom before recording. One take is fine. Authentic > polished. They're evaluating your thinking, not your video production quality.",
+        summary: "Write a thorough HuggingFace model card and finalize your experiment documentation. Good documentation is part of the deliverable — anyone should be able to reproduce your results.",
         tasks: [
           {
-            category: "Script (write this before recording)",
+            category: "Model card + docs (3 hrs)",
             items: [
-              "0:00–0:10 — 'Crustdata's ML intern JD mentions job title normalization across languages as a core problem. I built a mini version of that.'",
-              "0:10–0:30 — Show Tab 1: type 'Head of Rev Dept' → canonical output. Type 'Responsable Ventes' (French) → correctly maps to Sales Manager. Zero training on French.",
-              "0:30–0:55 — Show Tab 2: type 'RevOps professionals' → top matching titles. 'This is the semantic search problem from your JD.'",
-              "0:55–1:10 — Show Tab 3: comparison table. 'Fine-tuned XLM-R hits 91% vs 52% TF-IDF. Used SimCSE-style contrastive fine-tuning, training data generated with Claude for ~$2.'",
-              "1:10–1:30 — 'Repo link, W&B training run, and model on HuggingFace are all in the description. Would love to talk.'",
+              "Write HuggingFace model card: intended use, training data description, evaluation results, limitations",
+              "Document the full training config — base model, optimizer, LR schedule, batch size, epochs — so results are reproducible",
+              "Add a 'Quick Start' code snippet to the model card: load model, encode a sentence, query FAISS in <10 lines",
+              "Make the W&B training run public — this gives anyone reading your model card a transparent view of the training process",
             ],
           },
         ],
-        insight: "One take is fine. Don't over-edit. Authentic > polished. They're evaluating your thinking, not your video production.",
+        insight: "A well-written model card signals engineering maturity. It shows you're thinking about reproducibility, limitations, and downstream users — not just accuracy numbers.",
         concepts: [],
       },
       {
@@ -540,17 +539,18 @@ export const curriculum: Week[] = [
         slug: "w4-thu",
         title: "Polish repo + write the README",
         type: ["ship"],
-        summary: "A great README is part of the signal. Structure it clearly: problem statement, results table, papers implemented, data generation approach, live demo link at the top.",
+        summary: "A great README is the first thing anyone reads. Structure it for clarity: problem, results, architecture, papers implemented, and how to reproduce.",
         tasks: [
           {
             category: "README structure (2 hrs)",
             items: [
-              "Problem statement — 'Mapping noisy, multilingual job titles to canonical forms at scale'",
-              "Results table — TF-IDF / SBERT / Fine-tuned XLM-R with accuracy@1 and MRR",
-              "Architecture diagram — simple text diagram: raw title → XLM-R encoder → embedding → FAISS → canonical",
-              "Papers implemented — list all 3 with one-line summaries",
-              "Data generation — explain the LLM-as-labeler approach and cost (~$2 for 1,000 examples)",
-              "Live demo link — prominent, at the very top",
+              "Problem statement — describe the normalization problem clearly, with concrete before/after examples",
+              "Live demo link — prominent, at the very top of the README",
+              "Results table — TF-IDF / SBERT off-the-shelf / Fine-tuned XLM-R with accuracy@1 and MRR",
+              "Architecture diagram — text diagram: raw input → tokenizer → XLM-R encoder → mean pool → FAISS → canonical output",
+              "Papers implemented — list all 3 with one-line summaries of the key contribution",
+              "Data generation — explain the LLM-as-labeler approach, prompt structure, and cost (~$2 for 1,000 examples)",
+              "Reproduce section — step-by-step: clone repo, install deps, generate data, train, build FAISS index, run demo",
             ],
           },
         ],
@@ -559,26 +559,25 @@ export const curriculum: Week[] = [
       {
         day: "Friday",
         slug: "w4-fri",
-        title: "Send the DM — apply through portal",
+        title: "Ship — make everything public and shareable",
         type: ["ship"],
-        summary: "Ship day. Send the cold DM to the founders on X/LinkedIn. Apply through the official YC portal as a parallel track. Post on LinkedIn with the UMAP before/after image as the visual hook.",
+        summary: "Ship day. Get everything live, public, and reproducible. Do a final end-to-end test as if you are a stranger seeing the project for the first time.",
         tasks: [
           {
-            category: "Today's only goal",
+            category: "Final checklist",
             items: [
-              "Send the cold DM to Abhilash (@thechowdhary on X) and Manmohit (@ManmohitG) — same message, both channels",
-              "Apply through the official YC portal as a parallel track",
-              "Post the demo on LinkedIn — tag @Crustdata — with the UMAP before/after image as the visual hook",
+              "HuggingFace Space is live and returning correct results — test with at least 10 different inputs",
+              "GitHub repo is public with a clean README — live demo link at the top",
+              "Model is uploaded to HuggingFace Hub with a complete model card",
+              "W&B training run is public and shows loss curves, eval metrics, and hyperparameters",
+              "UMAP before/after visualization is in the README as the hero image",
             ],
           },
           {
-            category: "Checklist before sending",
+            category: "Share your work",
             items: [
-              "HuggingFace Space is live and returning results",
-              "GitHub repo is public with clean README",
-              "Loom link works in incognito mode",
-              "W&B run is public and shows training curves",
-              "DM is under 150 words",
+              "Post about what you built — explain the problem, the approach, and the result. The UMAP before/after image makes a strong visual hook.",
+              "Write a short technical post or thread: what did you learn building this? What surprised you? What would you do differently?",
             ],
           },
         ],
@@ -587,16 +586,24 @@ export const curriculum: Week[] = [
       {
         day: "Saturday",
         slug: "w4-sat",
-        title: "Interview prep — start now, don't wait",
+        title: "Reflect + go deeper",
         type: ["tensortonic", "buffer"],
-        summary: "Practice ML systems design out loud. Solve TensorTonic problems from memory. Be ready to discuss all 3 papers you implemented in depth.",
+        summary: "You've shipped a complete NLP system from scratch. Now go deeper. Stress-test your understanding: can you explain every design decision and derive every formula from memory?",
         tasks: [
           {
-            category: "Interview prep (3 hrs)",
+            category: "TensorTonic — systems mode (3 hrs)",
             items: [
-              "TensorTonic: solve 3 problems from scratch — Adam Optimizer, Batch Normalization, Dropout. These are likely to appear in a technical screen.",
-              "Practice out loud: 'Design a people search system that handles 500M profiles across 30 languages' — sketch the full pipeline: blocking → encoding → FAISS → reranking → evaluation",
-              "You've now implemented 3 papers. Be ready to discuss any of them: what problem it solved, the key innovation, and its limitations.",
+              "Solve from memory: Adam Optimizer, Batch Normalization, Dropout — derive the update rules without looking at notes",
+              "Systems design exercise: 'Design a semantic search system that handles 100M documents across 30 languages' — sketch the full pipeline: data ingestion → encoding → FAISS indexing → query → reranking → evaluation",
+              "You've implemented 3 papers end-to-end. Write a one-paragraph summary of each: what problem it solved, the key innovation, and one limitation. This forces crisp understanding.",
+            ],
+          },
+          {
+            category: "What to explore next",
+            items: [
+              "Read about re-ranking: how cross-encoders complement bi-encoders for higher precision retrieval",
+              "Explore quantization: how to make your FAISS index 4x smaller with minimal accuracy loss (Product Quantization)",
+              "Consider extending the project: add a new domain (product titles, medical codes, legal entities) and measure zero-shot transfer",
             ],
           },
         ],
