@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 
 const NAV_LINKS = [
   { href: "/curriculum", label: "Curriculum" },
@@ -21,7 +21,7 @@ export function Navbar() {
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 no-underline group">
-            <Image src="/icon.png" alt="FastNLP" width={28} height={28} className="rounded-md" />
+            <Logo size={32} />
             <span className="font-display font-700 text-[15px] tracking-tight text-[var(--ink)]">
               FastNLP
             </span>

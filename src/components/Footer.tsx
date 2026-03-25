@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
@@ -8,12 +9,7 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <div className="flex h-6 w-6 items-center justify-center rounded bg-[var(--ember)] text-white">
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                  <path d="M2 11L7 3L12 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M4 8.5H10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              </div>
+              <Logo size={24} />
               <span className="font-display font-bold text-sm">FastNLP</span>
             </div>
             <p className="text-sm text-[var(--ink-3)] leading-relaxed">
