@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -20,12 +21,7 @@ export function Navbar() {
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 no-underline group">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--ember)] text-white">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M2 11L7 3L12 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M4 8.5H10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              </svg>
-            </div>
+            <Image src="/icon.png" alt="FastNLP" width={28} height={28} className="rounded-md" />
             <span className="font-display font-700 text-[15px] tracking-tight text-[var(--ink)]">
               FastNLP
             </span>

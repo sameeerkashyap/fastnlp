@@ -1083,6 +1083,8 @@ model.fit(
     tagline: "Building NLP systems that work across multiple languages",
     description:
       "Multilingual NLP covers techniques for building models that process text in multiple languages — through shared multilingual models, cross-lingual transfer, or language-specific adaptation.",
+    intuition:
+      "Think of XLM-R as a polyglot who learned to read 100 languages simultaneously. When it reads 'Revenue' in English and 'Chiffre d'affaires' in French, it recognizes they appear in the same financial contexts and maps them close together — without ever being told they're translations. Your fine-tuning on English data then implicitly improves French too.",
     keyPoints: [
       "Translate-train: translate all data to English, train English-only model. Simple but loses nuance.",
       "Native multilingual: train directly on multilingual data. Requires more training data per language.",
@@ -1125,6 +1127,8 @@ model.fit(
     description:
       "Layer normalization normalizes the activations across the feature dimension (rather than batch dimension), computing mean and variance over each token's features independently. This makes it invariant to batch size and sequence length.",
     formula: "LN(x) = γ × (x - μ) / √(σ² + ε) + β",
+    intuition:
+      "Imagine each token's 768 features as a distribution. Without normalization, some features could explode to 10,000 while others stay near 0 — gradients from the large ones swamp the small ones. LayerNorm re-centers each token's features to mean 0, variance 1, then lets the model stretch and shift them back with learned γ and β. The result: every token enters each sublayer on equal footing.",
     keyPoints: [
       "Pre-LN (normalize before sublayers — GPT-2 style) trains more stably than Post-LN (original transformer)",
       "Works for any batch size including 1 — critical for autoregressive generation",
@@ -1169,6 +1173,8 @@ model.fit(
     formula: "L = max(0, d(a, p) - d(a, n) + margin)",
     formulaExplained:
       "d = distance (e.g., 1 - cosine_similarity). The loss is 0 when d(a,n) > d(a,p) + margin — the negative is already far enough away. Otherwise, we penalize proportionally.",
+    intuition:
+      "You're a bouncer deciding which embeddings belong together. Given 'VP of Sales' (anchor), you want it closer to 'Sales Director' (positive) than 'Data Engineer' (negative) — with some breathing room (margin). If the negative is already far enough, loss = 0 and you move on. If not, you push the negative away and pull the positive closer, proportionally to how wrong things are.",
     pythonCode: `import torch
 import torch.nn.functional as F
 
@@ -1237,6 +1243,8 @@ def triplet_loss(anchor, positive, negative, margin: float = 0.5) -> torch.Tenso
     tagline: "Adapting a pretrained model to a specific task with task-specific data",
     description:
       "Fine-tuning starts from a pretrained model's weights (like XLM-R) and continues training on task-specific data. The model's general language understanding transfers, so you need much less data and training time than training from scratch.",
+    intuition:
+      "XLM-R spent months learning that 'VP', 'Director', and 'Head of' appear in similar professional contexts across 100 languages. Fine-tuning doesn't erase that — it nudges the model to cluster your specific canonical titles together. Think of it as adjusting the last mile of a map: the continents are already right, you're just refining city blocks.",
     pythonCode: `from sentence_transformers import SentenceTransformer, losses, InputExample
 from torch.utils.data import DataLoader
 
@@ -1303,6 +1311,8 @@ model.fit(
     tagline: "Training one model on multiple tasks simultaneously for better generalization",
     description:
       "Multi-task learning trains a shared encoder on multiple objectives simultaneously. The shared representations benefit from each task — seniority classification regularizes the embeddings learned for semantic similarity, and vice versa.",
+    intuition:
+      "Training on only job title similarity can create embeddings where 'CEO' and 'Junior Analyst' look similar (both are job titles). Adding a seniority classification head forces the encoder to preserve seniority information in its representations. Each task acts as regularization for the others — they share a spine but pull it in complementary directions.",
     pythonCode: `import torch
 import torch.nn as nn
 
@@ -1358,6 +1368,8 @@ def compute_loss(model, batch, alpha=0.5):
     tagline: "Facebook's library for billion-scale nearest neighbor search",
     description:
       "FAISS (Facebook AI Similarity Search) enables efficient similarity search over large collections of dense vectors. It supports exact and approximate nearest neighbor search with various index types that trade accuracy for speed.",
+    intuition:
+      "You have 50,000 canonical job title embeddings. At query time, computing cosine similarity to all 50,000 would take ~10ms — fine for batch processing but too slow for real-time. FAISS precomputes an index so you can find the top-5 similar titles in under 1ms, even for a billion vectors. The index is like a library's card catalog — it doesn't store the books, just tells you exactly where to look.",
     pythonCode: `import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -1413,6 +1425,8 @@ for i, (dist, idx) in enumerate(zip(distances[0], indices[0])):
     tagline: "Retrieval using dense neural embeddings instead of sparse term matching",
     description:
       "Dense retrieval uses neural embeddings for search — encode queries and documents into the same vector space, retrieve by nearest neighbor. Contrasts with sparse retrieval (BM25, TF-IDF) which matches on exact term overlap.",
+    intuition:
+      "BM25 is a librarian who searches by exact word: 'RevOps' finds 'RevOps', not 'Revenue Operations'. Dense retrieval is a librarian who understands meaning: both phrases end up in the same semantic neighborhood because they appear in the same professional contexts. The tradeoff — semantic understanding costs 10-100x more compute than keyword matching.",
     keyPoints: [
       "BM25 (sparse): exact term match, very fast, no semantic understanding. 'RevOps' won't match 'Revenue Operations'.",
       "Dense retrieval: semantic matching, requires GPU encoding, finds synonyms and paraphrases",
@@ -1433,6 +1447,8 @@ for i, (dist, idx) in enumerate(zip(distances[0], indices[0])):
     tagline: "Trading small accuracy losses for massive speed gains in vector search",
     description:
       "Approximate Nearest Neighbor (ANN) search finds near-optimal neighbors orders of magnitude faster than exact search by accepting a small accuracy loss. Essential for billion-scale retrieval.",
+    intuition:
+      "Instead of measuring distance to every point in the room, ANN divides the room into zones and only checks zones near your query. HNSW builds a highway system — skip lanes that jump across the space so you don't walk every aisle. You might miss the absolute nearest neighbor 1% of the time, but you're 100x faster. At production scale, that 1% is worth it.",
     keyPoints: [
       "Exact search (IndexFlatIP): O(nd) per query — works for millions, fails for billions",
       "IVF (Inverted File): partition space into Voronoi cells, search only nearby cells — 10-100x speedup",
@@ -1453,6 +1469,8 @@ for i, (dist, idx) in enumerate(zip(distances[0], indices[0])):
     tagline: "Measuring the quality of your retrieval and classification system",
     description:
       "Information retrieval evaluation metrics measure how well a system returns relevant results. The key metrics for the FastNLP project: accuracy@k, MRR, and NDCG.",
+    intuition:
+      "Accuracy@1 is strict: the first result must be correct. Accuracy@5 is lenient: correct anywhere in top 5. MRR rewards getting it right sooner — rank 1 scores 1.0, rank 2 scores 0.5, rank 5 scores 0.2. Use accuracy@1 when your user sees only one result; use MRR when they'll scan a short list. Pick your metric based on how the system will actually be used.",
     pythonCode: `import numpy as np
 
 def accuracy_at_k(predictions: list[list[int]], targets: list[int], k: int) -> float:
@@ -1494,6 +1512,8 @@ def mean_reciprocal_rank(predictions: list[list[int]], targets: list[int]) -> fl
     tagline: "Visualizing high-dimensional embedding spaces in 2D",
     description:
       "UMAP (Uniform Manifold Approximation and Projection) reduces high-dimensional embeddings (768d) to 2D or 3D for visualization while preserving local structure. Use it to see whether your fine-tuning is creating meaningful clusters.",
+    intuition:
+      "Before fine-tuning, job titles from different functions might scatter randomly in embedding space. After fine-tuning, 'VP of Sales', 'Director of Sales', and 'Sales Manager' should cluster tightly together, while 'Head of Engineering' clusters elsewhere. UMAP is your sanity check — if clusters don't form, something is wrong with your training data or loss function.",
     pythonCode: `import umap
 import numpy as np
 import plotly.express as px
@@ -1537,6 +1557,8 @@ fig.show()
     tagline: "Using LLMs to generate training labels cheaply at scale",
     description:
       "Instead of manual annotation, use a capable LLM (GPT-4o, Claude) to generate training labels. For job title normalization: prompt the LLM to generate 20 noisy variants of each canonical title, including translations. Cost: ~$2 for 1,000 labeled examples.",
+    intuition:
+      "A human annotator labeling 10,000 job title pairs costs ~$500 and takes a week. Claude at $0.00025/token can do it in an hour for $2. The quality isn't perfect — LLMs make ~5% labeling errors — but a noisy large dataset often outperforms a clean small one. Use LLM labels to bootstrap, then validate a sample by hand. It's weak supervision: imperfect labels, real signal.",
     pythonCode: `import anthropic
 import json
 
